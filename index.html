@@ -1,50 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<!-- 	
-		index.html -RPG character generator/creator homepage
-		Aug 25, 2017
-	-->
+<meta charset="UTF-8">
+	<title>RPG Character Generator</title>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
 	</script>
-	<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
-  	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=no; target-densityDpi=device-dpi" />
-  	<link rel="stylesheet" href="http://ququplay.github.io/jquery-mobile-flat-ui-theme/css/jquery.mobile.flatui.css" />
-  	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-  	<script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
-
-
+	<link rel="stylesheet" href="http://ququplay.github.io/jquery-mobile-flat-ui-theme/css/jquery.mobile.flatui.css" />
+	<script src='spectrum.js'></script>
+	<link rel='stylesheet' href='spectrum.css' />
+	<script src='parseTable.js'></script>
+	<script src='createtable.js'></script>
 </head>
+
 <body>
-	<div data-role="page">
-	
-	<!-- header -->
-	<!--<div data-role="header" data-position="fixed" >Home</div>-->
 
 	<div><br><center><img src="./top.png"><center></div>
+
 	<!-- content -->
 	<div id="content" data-role="content">
-		<center><input type="text" data-theme="f" placeholder="Name (optional)"/>
+		<center><input type="text" data-theme="f" placeholder="Name (optional)" data-inline="true"/>
 		<select data-inline="true" name="selectgender" id="selectgender" data-theme="f">
 			<option value="" disabled selected>Gender (optional)</option>
-          		<option value="male">Male</option>
-         		<option value="female">Female</option>
-          		<option value="other">Other</option>
-        	</select> 
+			<option value="male">Male</option>
+			<option value="female">Female</option>
+			<option value="other">Other</option>
+		</select> 
 		<select data-inline="true" name="selectclass" id="selectclass" data-theme="f">
 			<option value="" disabled selected>Class (optional)</option>
-          		<option value="knight">Knight</option>
-         		<option value="orc">Orc</option>
-          		<option value="ranger">Ranger</option>
+			<option value="knight">Knight</option>
+			<option value="orc">Orc</option>
+			<option value="ranger">Ranger</option>
 			<option value="assassin">Assassin</option>
 			<option value="mage">Mage</option>
-        	</select></center>	
+		</select>
+		<br><br><button onclick="createTable(50, 50)" data-theme="f" data-inline="true">Proceed</button></center>
 	</div>
-	<center><button data-theme="f" data-inline="true">Generate!</button></center>
 
 
-	<!-- footer -->
-	<div data-role="footer" data-position="fixed">
-      	</div>
-	<!-- page -->
-	</div>
+	<table id="CharacterCreator">
+		<tr>
+			<td><table id="canvas"></table></td>
+
+		</tr>
+	</table>
+
+	<center><div id="color">
+		<input type='text' id='custom' />
+		<script>
+			$('#custom').spectrum({
+			//flat: true,
+				showPaletteOnly: true,
+				togglePaletteOnly: true,
+				togglePaletteMoreText: 'more',
+				togglePaletteLessText: 'less',
+				color: 'blanchedalmond',
+				palette: [
+						['#000','#444','#666','#999','#ccc','#eee','#f3f3f3','#fff'],
+						['#f00','#f90','#ff0','#0f0','#0ff','#00f','#90f','#f0f'],
+						['#f4cccc','#fce5cd','#fff2cc','#d9ead3','#d0e0e3','#cfe2f3','#d9d2e9','#ead1dc'],
+						['#ea9999','#f9cb9c','#ffe599','#b6d7a8','#a2c4c9','#9fc5e8','#b4a7d6','#d5a6bd'],
+						['#e06666','#f6b26b','#ffd966','#93c47d','#76a5af','#6fa8dc','#8e7cc3','#c27ba0'],
+						['#c00','#e69138','#f1c232','#6aa84f','#45818e','#3d85c6','#674ea7','#a64d79'],
+						['#900','#b45f06','#bf9000','#38761d','#134f5c','#0b5394','#351c75','#741b47'],
+						['#600','#783f04','#7f6000','#274e13','#0c343d','#073763','#20124d','#4c1130']
+					]
+			});
+		</script>
+	</div></center>
+
 </body>
+</html>
