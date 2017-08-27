@@ -111,11 +111,13 @@
 
         }
 
+
     </script>
 </head>
 <body>
-    <button onclick="createTable(50, 50)">Generate Canvas</button>
-    <button onclick="saveTable('test')">Save Character</button>
+    <button onclick="createTable(75, 75)">Generate Canvas</button>
+    <input type="text" id="savename">
+    <button onclick="saveTable($('#savename').val())">Save Character</button>
 
     <table id="CharacterCreator">
         <tr>
