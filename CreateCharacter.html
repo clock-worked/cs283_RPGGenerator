@@ -16,6 +16,17 @@
             return document.getElementById(textbox).value;
         }
 
+        function moveDown() {
+            var table = document.getElementById("canvas");
+            var tableArray = [];
+            var numRows = table.rows.length;
+            var numCols = table.rows[0].cells.length;
+
+            for(var i = 0; i <  numRows - 1;i++){
+                table.rows[i + 1] = table.rows[i];
+            }
+        }
+
         function createTable(height, width){
             var tableElem, rowElem, colElem;
             tableElem = document.createElement('table');
@@ -118,6 +129,7 @@
     <button onclick="createTable(75, 75)">Generate Canvas</button>
     <input type="text" id="savename">
     <button onclick="saveTable($('#savename').val())">Save Character</button>
+    <button onclick="moveDown()"> Down</button>
 
     <table id="CharacterCreator">
         <tr>
