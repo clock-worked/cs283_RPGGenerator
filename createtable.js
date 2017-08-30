@@ -29,7 +29,7 @@ function requestData() {
 				//alert(msg[0]);
 				msg = msg.substring(1,msg.length-1);
 				var data = msg.split(',');
-				alert(data[2]);	
+				alert(data);	
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
 				alert("Error");
