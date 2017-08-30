@@ -1,9 +1,37 @@
-
 function getColor(textbox) {
     return document.getElementById(textbox).value;
 }
 
+function requestData() {
+	var n = document.getElementById("selectname").value;
+	var g = document.getElementById("selectgender").value;
+	var c = document.getElementById("selectclass").value;
+	if (n=="" || g=="" || c==""){
+		var URL = '/requestData';
+		alert("READY");
+		//$.ajax({
+			//GET request and receives HTML string
+		//	type: "GET",
+			//passes requested table into URL
+		//	url: URL,
+		//	data: "{}",
+		//	dataType: "text",
+		//	success: function(msg) {
+		//		alert(msg);	
+		//	},
+		//	error: function (xhr, ajaxOptions, thrownError) {
+		//		alert("Error");
+		//	}
+		//});
+	}
+	else alert("none");
+
+
+}
+
+
 function createTable(height, width){
+    requestData();
     var tableElem, rowElem, colElem;
     tableElem = document.createElement('table');
     tableElem.cellSpacing = "0";

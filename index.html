@@ -12,6 +12,7 @@
 	<link rel='stylesheet' href='spectrum.css' />
 	<script src='parseTable.js'></script>
 	<script src='createtable.js'></script>
+
 </head>
 
 <body>
@@ -20,7 +21,7 @@
 
 	<!-- content -->
 	<div id="content" data-role="content">
-		<center><input type="text" data-theme="f" placeholder="Name (optional)" data-inline="true"/>
+		<center><input type="text" id="selectname" data-theme="f" placeholder="Name (optional)" data-inline="true"/>
 		<select data-inline="true" name="selectgender" id="selectgender" data-theme="f">
 			<option value="" disabled selected>Gender (optional)</option>
 			<option value="male">Male</option>
@@ -35,7 +36,7 @@
 			<option value="assassin">Assassin</option>
 			<option value="mage">Mage</option>
 		</select>
-		<br><br><button onclick="createTable(50, 50)" data-theme="f" data-inline="true">Proceed</button></center>
+		<br><br><button onclick="createTable(50,50)" data-theme="f" data-inline="true">Proceed</button></center>
 	</div>
 
 
