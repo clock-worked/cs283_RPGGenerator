@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"> </script>
+	
+</head>	
+
+<body>
+
+	<button onclick="process()">click</button>
+
+	<!-- content -->
+	<div id="content" data-role="content"></div>
+
+<script>
+function process(){
+var url = "http://localhost:8080/text";
+var div = document.getElementById('content');
+
+$.ajax({
+						type: "GET",
+						url: url,
+						data: {},
+						dataType: "html",
+						success: function(msg) {
+							var json = msg; 
+							alert(json);
+							
+						},
+						error: function (xhr, ajaxOptions, thrownError) {
+							div.innerHTML = "Error Fetching " + URL;
+						}
+					});
+					
+				}	
+											
+</script>
+</body>
+</html>
