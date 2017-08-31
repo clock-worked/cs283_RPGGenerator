@@ -1,9 +1,49 @@
-
 function getColor(textbox) {
     return document.getElementById(textbox).value;
 }
 
+function requestData() {
+	var n = document.getElementById("selectname").value;
+	var g = document.getElementById("selectgender").value;
+	var c = document.getElementById("selectclass").value;
+	if (n=="" || g=="" || c==""){
+		var items =[];
+		var URL = '/requestData?get=';
+		if (n=="") items.push("name");
+		if (g=="") items.push("gender");
+		if (c=="") items.push("class");
+		for (var i = 0; i<items.length; i+=1) {
+			if (i==items.length-1) URL = URL + items[i];
+			else URL = URL + items[i] + ',';
+			
+		}
+		//alert(URL);
+		$.ajax({
+			//GET request and receives HTML string
+			type: "GET",
+			//passes requested table into URL
+			url: URL,
+			data: "{}",
+			dataType: "text",
+			success: function(msg) {
+				//alert(msg[0]);
+				msg = msg.substring(1,msg.length-1);
+				var data = msg.split(',');
+				alert(data);	
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+				alert("Error");
+			}
+		});
+	}
+	else alert("none");
+
+
+}
+
+
 function createTable(height, width){
+    requestData();
     var tableElem, rowElem, colElem;
     tableElem = document.createElement('table');
     tableElem.cellSpacing = "0";
