@@ -37,13 +37,36 @@ function requestData() {
 		});
 	}
 	else alert("none");
-
-
 }
 
 
-function createTable(height, width){
-    requestData();
+function process(height,width){
+	var URL = "/readCSV";
+	var tableArray = [];
+
+	$.ajax({
+		type: "GET",
+		url: URL,
+		data: {},
+		dataType: "html",
+		success: function(msg) {
+			var rows = msg.split("\n");
+			
+			for (var i = 0; i < 75; i+=1) {
+				var column = rows[i].split(",");				
+				tableArray.push(column);
+			}
+			construct(height,width,tableArray);
+				
+		},
+		error: function (xhr, ajaxOptions, thrownError) {
+			alert("Error Fetching " + URL);
+		}
+	});
+}
+
+function construct(height,width,tableArray) {
+
     var tableElem, rowElem, colElem;
     tableElem = document.createElement('table');
     tableElem.cellSpacing = "0";
@@ -53,6 +76,7 @@ function createTable(height, width){
 
     for (var i = 0; i < height; i++) {
         rowElem = document.createElement('tr');
+	
 
 
         for (var j = 0; j < width; j++) {
@@ -61,7 +85,8 @@ function createTable(height, width){
             colElem.style.border = "1px solid black";
             colElem.style.height = "10px";
             colElem.style.width = "10px";
-            colElem.style.background = '#a0a0a0';
+            colElem.style.background = tableArray[i][j];
+
 
             //Change color of cell
             colElem.onclick = function () { this.style.background = getColor('custom')};
@@ -77,6 +102,7 @@ function createTable(height, width){
 
         tableElem.appendChild(rowElem);
     }
+
     var tableMain = document.createElement('table');
     colElem = document.createElement('td');
     colElem.appendChild(tableElem);
@@ -85,10 +111,27 @@ function createTable(height, width){
     colElem = document.createElement('td');
 
     tableMain.appendChild(document.getElementById("color"));
+	
 
     document.body.replaceChild(tableMain, document.getElementById("CharacterCreator"));
+	var table = document.getElementById("canvas");
+	//for (var i = 0; i < 75; i+=1) {
+	//	for (var j = 0; j < 75; j+=1) {
+	//		//table.rows[i].cells[j].style.background = tableArray[i][j]; 
+	//		alert(tableArray[i][j]);
+	//	}
+	//}
 
+	//alert(table.rows[0].cells[0].style.background);
 
+}
+function createTable(height, width){
+	requestData();
+	//construct(height,width);
+	process(height,width);
+	//alert(JSON.stringify(data));
+
+    //process();
 }
 
 function rgb2hex(rgb){

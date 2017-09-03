@@ -1,4 +1,5 @@
 var express = require('express');
+var fs= require('fs');
 var app = express();
 app.use(express.static("."));
 var randomData = require('./randomData');
@@ -21,3 +22,19 @@ app.get('/requestData', function(req,res) {
 	//res.send("TEST");
 
 });
+
+app.get('/readCSV', function (req, res) {
+	//res.writeHead(200, {'content-type': 'text/html'});
+	console.log("Page is running here...");
+	fs.readFile('./character_template.csv', 'utf8', function(err,colors){
+		if (err){
+			res.writeHead(404);
+			res.write("File not Found!");
+		}
+		else{
+		 res.send(colors);
+		}
+		res.end();
+	});
+	
+})
