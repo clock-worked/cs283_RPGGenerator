@@ -2,7 +2,7 @@ function getColor(textbox) {
     return document.getElementById(textbox).value;
 }
 
-function requestData() {
+function requestData(height,width) {
 	var n = document.getElementById("selectname").value;
 	var g = document.getElementById("selectgender").value;
 	var c = document.getElementById("selectclass").value;
@@ -28,8 +28,15 @@ function requestData() {
 			success: function(msg) {
 				//alert(msg[0]);
 				msg = msg.substring(1,msg.length-1);
-				var data = msg.split(',');
-				alert(data);	
+				var data = msg.split(',');	
+				for (var i=0; i<data.length; i++) {
+					if (document.getElementById("selectname").value=="") document.getElementById("selectname").value = data[i].substring(1,data[i].length-1);
+					else if (document.getElementById("selectgender").value=="") document.getElementById("selectgender").value = data[i].substring(1,data[i].length-1);
+					else if (document.getElementById("selectclass").value=="") document.getElementById("selectclass").value = data[i].substring(1,data[i].length-1);
+				}
+				var c = document.getElementById("selectclass").value;
+				process(height,width,c);
+
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
 				alert("Error");
@@ -40,8 +47,8 @@ function requestData() {
 }
 
 
-function process(height,width){
-	var URL = "/readCSV";
+function process(height,width,c){
+	var URL = "/readCSV?class="+c;
 	var tableArray = [];
 
 	$.ajax({
@@ -115,23 +122,10 @@ function construct(height,width,tableArray) {
 
     document.body.replaceChild(tableMain, document.getElementById("CharacterCreator"));
 	var table = document.getElementById("canvas");
-	//for (var i = 0; i < 75; i+=1) {
-	//	for (var j = 0; j < 75; j+=1) {
-	//		//table.rows[i].cells[j].style.background = tableArray[i][j]; 
-	//		alert(tableArray[i][j]);
-	//	}
-	//}
-
-	//alert(table.rows[0].cells[0].style.background);
-
 }
-function createTable(height, width){
-	requestData();
-	//construct(height,width);
-	process(height,width);
-	//alert(JSON.stringify(data));
 
-    //process();
+function createTable(height, width){
+	requestData(height,width);
 }
 
 function rgb2hex(rgb){
@@ -180,4 +174,6 @@ function saveTable(filename) {
     link.click(); // This will download the data file named "my_data.csv".
 
 }
+
+
 

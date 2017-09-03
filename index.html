@@ -12,6 +12,43 @@
 	<link rel='stylesheet' href='spectrum.css' />
 	<script src='parseTable.js'></script>
 	<script src='createtable.js'></script>
+	<script src="html2canvas.js"></script>
+
+
+	<script language="JavaScript">
+		function saveImage(filename) {
+            var table = document.getElementById("canvas");
+
+            var numRows = table.rows.length;
+            var numCols = table.rows[0].cells.length;
+            for(var i = 0; i <  numRows;i++){
+
+                for(var j = 0; j < numCols;j++){
+                    table.rows[i].cells[j].style.border = "";
+                    //setTimeout(function(){alert('hi')}, 100);
+                    //console.log(j);
+
+                }
+            }
+
+            html2canvas(table, {
+                onrendered: function(canvas) {
+                    //canvas.toDataURL("image/png");
+                    document.body.appendChild(canvas);
+                }
+            });
+
+            for(i = 0; i <  numRows;i++){
+
+                for(j = 0; j < numCols;j++){
+                    table.rows[i].cells[j].style.border = "1px solid black";
+                    //setTimeout(function(){alert('hi')}, 100);
+                    //console.log(j);
+
+                }
+            }
+        }
+	</script>
 
 </head>
 
@@ -35,10 +72,10 @@
 			<option value="ranger">Ranger</option>
 			<option value="assassin">Assassin</option>
 			<option value="mage">Mage</option>
+			<option value="template">Template</option>
 		</select>
 		<br><br><button onclick="createTable(75,75)" data-theme="f" data-inline="true">Proceed</button></center>
 		<div>
-			<button onclick="process(75,75)">Load Template</button>
 			<input type="text" id="savename">
 			<button onclick="saveImage($('#savename').val())">Save Character</button>
 		</div>

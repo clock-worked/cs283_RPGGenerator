@@ -25,8 +25,11 @@ app.get('/requestData', function(req,res) {
 
 app.get('/readCSV', function (req, res) {
 	//res.writeHead(200, {'content-type': 'text/html'});
-	console.log("Page is running here...");
-	fs.readFile('./class_csvs/character_template.csv', 'utf8', function(err,colors){
+	var c = req.query.class;
+	var file = '';
+	if (c=='template') file += './class_csvs/character_template.csv';
+	else file += './class_csvs/' + c + '_class.csv';
+	fs.readFile(file, 'utf8', function(err,colors){
 		if (err){
 			res.writeHead(404);
 			res.write("File not Found!");
