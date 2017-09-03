@@ -17,15 +17,77 @@
             return document.getElementById(textbox).value;
         }
 
-        function moveDown() {
-            var table = document.getElementById("CharacterCreator");
-            var numRows = table.rows.length;
+        function process(height,width){
+            var URL = "/readCSV";
+            var tableArray = [];
 
-            for(var i = 0; i <  numRows - 1;i++){
-                table.rows[i + 1] = table.rows[i];
+            $.ajax({
+                type: "GET",
+                url: URL,
+                data: {},
+                dataType: "html",
+                success: function(msg) {
+                    var rows = msg.split("\n");
+
+                    for (var i = 0; i < height; i+=1) {
+                        var column = rows[i].split(",");
+                        tableArray.push(column);
+                    }
+                    construct(height,width,tableArray);
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert("Error Fetching " + URL);
+                }
+            });
+        }
+
+        function construct(height,width,tableArray) {
+
+            var tableElem, rowElem, colElem;
+            tableElem = document.createElement('table');
+            tableElem.cellSpacing = "0";
+            tableElem.id = "canvas";
+            tableElem.style.border = "1px solid black";
+            tableElem.style.cursor = "pointer";
+
+            for (var i = 0; i < height; i++) {
+                rowElem = document.createElement('tr');
+                for (var j = 0; j < width; j++) {
+                    colElem = document.createElement('td');
+                    //colElem.appendChild(document.createTextNode(j + 1)); //to print cell number
+                    colElem.style.border = "1px solid black";
+                    colElem.style.height = "8px";
+                    colElem.style.width = "8px";
+                    colElem.style.background = tableArray[i][j];
+
+
+                    //Change color of cell
+                    colElem.onclick = function () { this.style.background = getColor('custom')};
+                    colElem.addEventListener("mouseover", function(e){
+                        if(e.buttons == 1 || e.buttons == 3){
+                            this.style.background = getColor('custom')
+                        }
+                    })
+
+
+                    rowElem.appendChild(colElem);
+                }
+
+                tableElem.appendChild(rowElem);
             }
 
-            document.replaceChild(table, document.getElementById("CharacterCreator"));
+            var tableMain = document.createElement('table');
+            colElem = document.createElement('td');
+            colElem.appendChild(tableElem);
+            tableMain.appendChild(colElem);
+
+            colElem = document.createElement('td');
+
+            tableMain.appendChild(document.getElementById("color"));
+
+
+            document.body.replaceChild(tableMain, document.getElementById("CharacterCreator"));
 
         }
 
@@ -163,7 +225,7 @@
     <button onclick="createTable(75, 75)">Generate Canvas</button>
     <input type="text" id="savename">
     <button onclick="saveTable($('#savename').val())">Save Character</button>
-    <button onclick="moveDown()"> Down</button>
+    <button onclick="process(75, 75)"> Load Template</button>
 
     <table id="CharacterCreator">
         <tr>

@@ -26,7 +26,7 @@ app.get('/requestData', function(req,res) {
 app.get('/readCSV', function (req, res) {
 	//res.writeHead(200, {'content-type': 'text/html'});
 	console.log("Page is running here...");
-	fs.readFile('./character_template.csv', 'utf8', function(err,colors){
+	fs.readFile('./class_csvs/character_template.csv', 'utf8', function(err,colors){
 		if (err){
 			res.writeHead(404);
 			res.write("File not Found!");
