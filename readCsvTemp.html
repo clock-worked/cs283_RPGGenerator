@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"> </script>
+	
+</head>	
+
+<body>
+
+	<button onclick="process()">click</button>
+
+	<!-- content -->
+	<div id="content" data-role="content"></div>
+
+<script>
+//saveTable() used as a guide to create this function
+//needs to refer to appropriate .html file to function w/out error
+function process(){
+	var url = "http://localhost:8080/text"; //change url
+	//var div = document.getElementById('content');
+	var table = document.getElementById("canvas"); 
+	var tableArray = [];
+	var numRows = table.rows.length;
+	var numCols = table.rows[0].cells.length;
+
+	$.ajax({
+		type: "GET",
+		url: url,
+		data: {},
+		dataType: "html",
+		success: function(msg) {
+
+			var rows = msg.split("\n");
+			
+			rows.forEach( function getvalues(thisRow) {
+				var columns = thisRow.split(",");
+				
+				//for(var i=0;i<columns.length;i++){ div.innerHTML +=columns[i];}   			
+				//div.innerHTML+="<br>";
+			
+				for(var i = 0; i <  numRows;i++){
+					var tempArray = [];
+					for(var j = 0; j < numCols;j++){
+						//tempArray.push(rgb2hex(table.rows[i].cells[j].style.background));
+						tempArray.push(columns[j]);
+					}
+					tableArray.push(tempArray);
+					//use tableArray
+				}
+			})
+		},
+		error: function (xhr, ajaxOptions, thrownError) {
+			alert("Error Fetching " + URL);
+		}
+	});
+					
+}	
+											
+</script>
+</body>
+</html>
