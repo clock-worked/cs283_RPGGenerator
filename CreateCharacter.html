@@ -10,6 +10,7 @@
     <script src='spectrum.js'></script>
     <link rel='stylesheet' href='spectrum.css' />
     <script src='parseTable.js'></script>
+    <script src="html2canvas.js"></script>
 
     <script language="JavaScript">
         function getColor(textbox) {
@@ -17,14 +18,15 @@
         }
 
         function moveDown() {
-            var table = document.getElementById("canvas");
-            var tableArray = [];
+            var table = document.getElementById("CharacterCreator");
             var numRows = table.rows.length;
-            var numCols = table.rows[0].cells.length;
 
             for(var i = 0; i <  numRows - 1;i++){
                 table.rows[i + 1] = table.rows[i];
             }
+
+            document.replaceChild(table, document.getElementById("CharacterCreator"));
+
         }
 
         function createTable(height, width){
@@ -88,6 +90,39 @@
             $('.result').html( hex );
         });
 
+        function saveImage(filename) {
+            var table = document.getElementById("canvas");
+
+            var numRows = table.rows.length;
+            var numCols = table.rows[0].cells.length;
+            for(var i = 0; i <  numRows;i++){
+
+                for(var j = 0; j < numCols;j++){
+                    table.rows[i].cells[j].style.border = "";
+                    //setTimeout(function(){alert('hi')}, 100);
+                    //console.log(j);
+
+                }
+            }
+
+            html2canvas(table, {
+                onrendered: function(canvas) {
+                    //canvas.toDataURL("image/png");
+                    document.body.appendChild(canvas);
+                }
+            });
+
+            for(i = 0; i <  numRows;i++){
+
+                for(j = 0; j < numCols;j++){
+                    table.rows[i].cells[j].style.border = "1px solid black";
+                    //setTimeout(function(){alert('hi')}, 100);
+                    //console.log(j);
+
+                }
+            }
+        }
+
         function saveTable(filename) {
             var table = document.getElementById("canvas");
             var tableArray = [];
@@ -121,7 +156,6 @@
             link.click(); // This will download the data file named "my_data.csv".
 
         }
-
 
     </script>
 </head>

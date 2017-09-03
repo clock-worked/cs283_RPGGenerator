@@ -52,7 +52,7 @@ function process(height,width){
 		success: function(msg) {
 			var rows = msg.split("\n");
 			
-			for (var i = 0; i < 75; i+=1) {
+			for (var i = 0; i < height; i+=1) {
 				var column = rows[i].split(",");				
 				tableArray.push(column);
 			}
