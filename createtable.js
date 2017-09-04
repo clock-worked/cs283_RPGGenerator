@@ -182,7 +182,7 @@ function createPage() {
 	$("#content").hide();
 	$("#CreateCharacter").hide();
 	$("#color").hide();
-	var HTML = "";
+	var HTML = "<center><button id=\"restart\" onclick=\"restart()\">Start over!</button></center><br>";
 	var table = document.getElementById("canvas");
 	var numRows = table.rows.length;
 	var numCols = table.rows[0].cells.length;
@@ -204,5 +204,8 @@ function createPage() {
 	document.getElementById("profile").innerHTML = HTML;
 }
 
+function restart() {
+	location.reload();
+}
 
 
