@@ -126,6 +126,8 @@ function construct(height,width,tableArray) {
 
 function createTable(height, width){
 	requestData(height,width);
+	$("#proceed").hide();
+	$("#complete").show();
 }
 
 function rgb2hex(rgb){
@@ -173,6 +175,33 @@ function saveTable(filename) {
 
     link.click(); // This will download the data file named "my_data.csv".
 
+}
+
+function createPage() {
+	//alert("SUCCESS");
+	$("#content").hide();
+	$("#CreateCharacter").hide();
+	$("#color").hide();
+	var HTML = "";
+	var table = document.getElementById("canvas");
+	var numRows = table.rows.length;
+	var numCols = table.rows[0].cells.length;
+	for(var i = 0; i <  numRows;i++){
+		for(var j = 0; j < numCols;j++){
+			table.rows[i].cells[j].style.border = "";
+			//setTimeout(function(){alert('hi')}, 100);
+			//console.log(j);
+
+		}
+	}
+	HTML += "<b><font size=\'6\'>Name: </font></b><font size=\'5\'>";
+	HTML += document.getElementById("selectname").value;
+	HTML += "</font><br><b><font size=\'6\'>Gender: </font></b><font size=\'5\'>";
+	HTML += document.getElementById("selectgender").value;
+	HTML += "</font><br><b><font size=\'6\'>Class: </font></b><font size=\'5\'>";
+	HTML += document.getElementById("selectclass").value;
+	HTML += "</font>";
+	document.getElementById("profile").innerHTML = HTML;
 }
 
 

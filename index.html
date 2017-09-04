@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>	
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -17,37 +17,35 @@
 
 	<script language="JavaScript">
 		function saveImage(filename) {
-            var table = document.getElementById("canvas");
+			var table = document.getElementById("canvas");
 
-            var numRows = table.rows.length;
-            var numCols = table.rows[0].cells.length;
-            for(var i = 0; i <  numRows;i++){
+			var numRows = table.rows.length;
+			var numCols = table.rows[0].cells.length;
+			for(var i = 0; i <  numRows;i++){
+				for(var j = 0; j < numCols;j++){
+					table.rows[i].cells[j].style.border = "";
+					//setTimeout(function(){alert('hi')}, 100);
+					//console.log(j);
 
-                for(var j = 0; j < numCols;j++){
-                    table.rows[i].cells[j].style.border = "";
-                    //setTimeout(function(){alert('hi')}, 100);
-                    //console.log(j);
+				}
+			}
 
-                }
-            }
+			html2canvas(table, {
+				onrendered: function(canvas) {
+					//canvas.toDataURL("image/png");
+					document.body.appendChild(canvas);
+				}
+			});
 
-            html2canvas(table, {
-                onrendered: function(canvas) {
-                    //canvas.toDataURL("image/png");
-                    document.body.appendChild(canvas);
-                }
-            });
+			for(i = 0; i <  numRows;i++){
+				for(j = 0; j < numCols;j++){
+					table.rows[i].cells[j].style.border = "1px solid black";
+					//setTimeout(function(){alert('hi')}, 100);
+					//console.log(j);
 
-            for(i = 0; i <  numRows;i++){
-
-                for(j = 0; j < numCols;j++){
-                    table.rows[i].cells[j].style.border = "1px solid black";
-                    //setTimeout(function(){alert('hi')}, 100);
-                    //console.log(j);
-
-                }
-            }
-        }
+				}
+			}
+		}
 	</script>
 
 </head>
@@ -74,9 +72,15 @@
 			<option value="mage">Mage</option>
 			<option value="template">Template</option>
 		</select>
-		<br><br><button onclick="createTable(75,75)" data-theme="f" data-inline="true">Proceed</button></center>
+		<br><br><button id="proceed" onclick="createTable(75,75)" data-theme="f" data-inline="true">Proceed</button></center>
+			
+		<!--<div>
+			<input type="text" id="savename">
+			<button onclick="saveImage($('#savename').val())">Save Character</button>
+		</div>-->
 
 	</div>
+	<div id="profile"><center><button hidden id="complete" onclick="createPage()" data-inline="true">Complete</button><center></div>
 
 
 	<table id="CharacterCreator">
