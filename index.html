@@ -60,9 +60,12 @@
         
  				var img = canvas.toDataURL("image/png");
 				var doc = new jsPDF("p", "mm", "a4");
-				var width = doc.internal.pageSize.width;    
-				var height = doc.internal.pageSize.height;
-				doc.addImage(img,'JPEG',15, -100, width*2, height);
+				//for CHROMIUM (on my PC) this is 210
+				//var width = doc.internal.pageSize.width;
+				//for CHROMIUM (on my PC) this is 297
+				//var height = doc.internal.pageSize.height;
+				//doc.addImage(img,'JPEG',15, -100, width*2, height);
+				doc.addImage(img,'JPEG',15, -100, 420, 297);
 				doc.save('character.pdf');
         		}
     
