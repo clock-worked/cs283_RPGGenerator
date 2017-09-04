@@ -178,19 +178,17 @@ function saveTable(filename) {
 }
 
 function createPage() {
-	//alert("SUCCESS");
 	$("#content").hide();
 	$("#CreateCharacter").hide();
 	$("#color").hide();
 	var HTML = "<center><button id=\"restart\" onclick=\"restart()\">Start over!</button></center><br>";
+	HTML += "<center><button id=\"restart\" onclick=\"genPDF()\">Save!</button></center><br>";
 	var table = document.getElementById("canvas");
 	var numRows = table.rows.length;
 	var numCols = table.rows[0].cells.length;
 	for(var i = 0; i <  numRows;i++){
 		for(var j = 0; j < numCols;j++){
 			table.rows[i].cells[j].style.border = "";
-			//setTimeout(function(){alert('hi')}, 100);
-			//console.log(j);
 
 		}
 	}

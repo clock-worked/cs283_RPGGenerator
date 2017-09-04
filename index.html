@@ -18,6 +18,7 @@
 
 
 	<script language="JavaScript">
+		//this doesn't look like it's being used anywhere
 		function saveImage(filename) {
 		genPDF();
 			var table = document.getElementById("canvas");
@@ -50,18 +51,25 @@
 				}
 			}
 			
-			function genPDF(){
-	html2canvas(document.body,{ //capture the whole body
-		onrendered: function (canvas){
-			var img = canvas.toDataURL("image/png");
-			var doc = new jsPDF();
-			doc.addImage(img,'JPEG',20,20);
-			doc.save('character.pdf');
+			
 		}
-	
-	})}
-		}
+
+	function genPDF() {
+		html2canvas(document.body,{ //capture the whole body
+			onrendered: function (canvas){
+        
+ 				var img = canvas.toDataURL("image/png");
+				var doc = new jsPDF("p", "mm", "a4");
+				var width = doc.internal.pageSize.width;    
+				var height = doc.internal.pageSize.height;
+				doc.addImage(img,'JPEG',15, -100, width*2, height);
+				doc.save('character.pdf');
+        		}
+    
+   		})
+	}
 	</script>
+	
 
 </head>
 
@@ -88,11 +96,6 @@
 			<option value="template">Template</option>
 		</select>
 		<br><br><button id="proceed" onclick="createTable(75,75)" data-theme="f" data-inline="true">Proceed</button></center>
-			
-		<!--<div>
-			<input type="text" id="savename">
-			<button onclick="saveImage($('#savename').val())">Save Character</button>
-		</div>-->
 
 	</div>
 	<div id="profile"><center><button hidden id="complete" onclick="createPage()" data-inline="true">Complete</button><center></div>
